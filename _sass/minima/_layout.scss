@@ -17,14 +17,21 @@
   letter-spacing: -1px;
   margin-bottom: 0;
   float: left;
+  color: $sol-white;
 
   @include media-query($on-palm) {
     padding-right: 45px;
   }
 
-  &,
+  color: $sol-white;
+
   &:visited {
-    color: $site-title-color;
+    color: $sol-white;
+  }
+
+  &:hover {
+    color: $sol-white;
+    text-decoration: underline;
   }
 }
 
@@ -74,7 +81,7 @@
   }
 
   .page-link {
-    color: $text-color;
+    color: $sol-white;
     line-height: $base-line-height;
     display: block;
     padding: 5px 10px;
@@ -144,7 +151,7 @@
 .footer-col-wrapper,
 .social-links {
   @include relative-font-size(0.9375);
-  color: $brand-color;
+  color: $sol-white;
 }
 
 .footer-col {
@@ -195,6 +202,10 @@
   }
 }
 
+.svg-icon
+{
+  fill: $sol-white;
+}
 
 
 /**
@@ -224,12 +235,23 @@
 
 .post-meta {
   font-size: $small-font-size;
-  color: $brand-color;
+  color: $sol-white;
 }
 
 .post-link {
   display: block;
   @include relative-font-size(1.5);
+
+  color: $sol-link;
+
+  &:visited {
+    color: $sol-link;
+  }
+
+  &:hover {
+    color: $sol-link;
+    text-decoration: underline;
+  }
 }
 
 
@@ -250,6 +272,8 @@
   @media screen and (min-width: $on-large) {
     @include relative-font-size(2.625);
   }
+
+  color: $sol-link;
 }
 
 .post-content {
