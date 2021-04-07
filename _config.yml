@@ -29,6 +29,9 @@ url: "https://diegomacario.github.io/" # the base hostname & protocol for your s
 twitter_username: jekyllrb
 github_username:  jekyll
 
+minima:
+  skin: solarized-dark
+
 # Build settings
 theme: minima
 plugins:
