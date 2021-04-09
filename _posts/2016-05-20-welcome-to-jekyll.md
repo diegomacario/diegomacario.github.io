@@ -1,12 +1,5 @@
 ---
 layout: post
-##title_color: style="color:#EA5455" # Sunset red
-#title_color: style="color:#F07B3F" # Sunset orange
-#title_color: style="color:#FFD460" # Sunset yellow
-
-##title_color: style="color:#ffaaa5" # Pastel red
-#title_color: style="color:#ffd3b6" # Pastel orange
-#title_color: style="color:#fdffab" # Pastel yellow
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 

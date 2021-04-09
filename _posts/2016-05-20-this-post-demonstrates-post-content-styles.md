@@ -6,15 +6,6 @@ author:
 - Bart Simpson
 - Nelson Mandela Muntz
 meta: "Springfield"
-#title_color: style="color:#EA5455" # Sunset red
-##title_color: style="color:#F07B3F" # Sunset orange
-#title_color: style="color:#FFD460" # Sunset yellow
-
-#title_color: style="color:#ffaaa5" # Pastel red
-##title_color: style="color:#ffd3b6" # Pastel orange
-#title_color: style="color:#fdffab" # Pastel yellow
-
-#title_color: style="color:#46cdcf"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit.
