@@ -27,10 +27,6 @@ $sol-blue:     #268bd2;  // 55 -10 -45
 $sol-cyan:     #2aa198;  // 60 -35 -05
 $sol-green:    #859900;  // 60 -20  65
 
-$sol-white: #ffffff;
-$sol-text: #bbbbbb;
-$sol-link: #ea5455;
-
 // https://colorhunt.co/palette/361
 
 // https://colorhunt.co/palette/7247
@@ -52,10 +48,18 @@ $sol-fogleman-header: #fafaf8;
 $sol-fogleman-border: #eeeeee;
 $sol-fogleman-background: #ffffff;
 
-$sol-header-color: $sol-max-dark;
-$sol-footer-color: $sol-max-dark;
-$background-color: $sol-max-light !default;
+$sol-header-color: #48466d;
+$background-color: #355c7d !default;
+$sol-footer-color: #46cdcf;
 $brand-color-light: #ffffff;
+
+$sol-white: #ffffff;
+$sol-text: #bbbbbb;
+//$sol-link: #ea5455;
+
+//$sol-white: #000000;
+//$sol-text: #bbbbbb;
+$sol-link: #abedd8;
 
 // Minima color variables
 // ----------------------
