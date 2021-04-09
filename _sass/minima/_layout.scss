@@ -129,7 +129,7 @@
  * Site footer
  */
 .site-footer {
-  padding: $spacing-unit 0;
+  padding: 10px 0;
 
   background-image: linear-gradient(to bottom, #1fab89,#62d2a2, #9df3c4);
 }
@@ -275,7 +275,7 @@
       display: block;
       padding: $spacing-unit / 4;
       border: 1px solid $border-color-01;
-      &:hover { border-color: $border-color-02 }
+      &:hover { border-color: $sol-blue }
     }
   }
 }
