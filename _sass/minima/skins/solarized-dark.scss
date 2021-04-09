@@ -29,19 +29,45 @@ $sol-green:    #859900;  // 60 -20  65
 
 $sol-white: #ffffff;
 $sol-text: #bbbbbb;
-$sol-link: #ff6700;
+$sol-link: #ea5455;
+
+// https://colorhunt.co/palette/361
+
+// https://colorhunt.co/palette/7247
+$sol-sunset-red: #ea5455;
+$sol-sunset-orange: #f07b3f;
+$sol-sunset-yellow: #ffd460;
+$sol-sunset-blue: #1b2635;
+
+// https://colorhunt.co/palette/118795
+$sol-pastel-red: #ffaaa5;
+$sol-pastel-orange: #ffd3b6;
+$sol-pastel-yellow: #fdffab;
+$sol-pastel-green: #a8e6cf;
+
+$sol-max-light: #444444ff;
+$sol-max-dark: #3A3A3Aff;
+
+$sol-fogleman-header: #fafaf8;
+$sol-fogleman-border: #eeeeee;
+$sol-fogleman-background: #ffffff;
+
+$sol-header-color: $sol-max-dark;
+$sol-footer-color: $sol-max-dark;
+$background-color: $sol-max-light !default;
+$brand-color-light: #ffffff;
 
 // Minima color variables
 // ----------------------
 
 $brand-color:           $sol-base01 !default;
-$brand-color-light:     mix($sol-base01, $sol-base03) !default;
+//$brand-color-light:     mix($sol-base01, $sol-base03) !default;
 $brand-color-dark:      $sol-base0 !default;
 
 $site-title-color:      $sol-base0 !default;
 
 $text-color:            $sol-text !default;
-$background-color:      $sol-base03 !default;
+//$background-color:      $sol-fogleman-header !default;
 $code-background-color: $sol-base02 !default;
 
 $link-base-color:       $sol-blue !default;
