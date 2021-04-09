@@ -14,12 +14,21 @@ To add new posts, simply add a file in the `_posts` directory that follows the c
 
 Jekyll also offers powerful support for code snippets:
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
+{% highlight cpp %}
+Q::quat Q::normalized(const Q::quat& q)
+{
+   float squaredLen = q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w;
+   if (squaredLen < QUAT_EPSILON)
+   {
+      return Q::quat();
+   }
+   float invertedLen = 1.0f / glm::sqrt(squaredLen);
+
+   return Q::quat(q.x * invertedLen,
+                  q.y * invertedLen,
+                  q.z * invertedLen,
+                  q.w * invertedLen);
+}
 {% endhighlight %}
 
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
