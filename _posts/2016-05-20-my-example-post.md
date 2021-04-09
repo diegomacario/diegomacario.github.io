@@ -4,9 +4,11 @@ layout: post
 #title_color: style="color:#F07B3F" # Sunset orange
 #title_color: style="color:#FFD460" # Sunset yellow
 
-#title_color: style="color:#ffaaa5" # Pastel red
+##title_color: style="color:#ffaaa5" # Pastel red
 #title_color: style="color:#ffd3b6" # Pastel orange
 #title_color: style="color:#fdffab" # Pastel yellow
+
+#title_color: style="color:#46cdcf"
 ---
 
 Eos eu docendi tractatos sapientem, brute option menandri in vix, quando vivendo accommodare te ius. Nec melius fastidii constituam id, viderer theophrastus ad sit, hinc semper periculis cum id. Noluisse postulant assentior est in, no choro sadipscing repudiandae vix. Vis in euismod delenit dignissim. Ex quod nostrum sit, suas decore animal id ius, nobis solet detracto quo te.

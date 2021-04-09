@@ -4,7 +4,7 @@ layout: post
 #title_color: style="color:#F07B3F" # Sunset orange
 #title_color: style="color:#FFD460" # Sunset yellow
 
-#title_color: style="color:#ffaaa5" # Pastel red
+##title_color: style="color:#ffaaa5" # Pastel red
 #title_color: style="color:#ffd3b6" # Pastel orange
 #title_color: style="color:#fdffab" # Pastel yellow
 ---
