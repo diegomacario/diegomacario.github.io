@@ -39,8 +39,8 @@
   position: absolute;
   top: 9px;
   right: $spacing-unit / 2;
-  background-color: $background-color;
-  border: 1px solid $border-color-01;
+  background-color: #abedd8;
+  border: 1px solid $sol-white;
   border-radius: 5px;
   text-align: right;
 
@@ -56,8 +56,11 @@
     padding-top: 10px;
     text-align: center;
 
+    background-color: #abedd8;
+    border-radius: 5px;
+
     > svg path {
-      fill: $border-color-03;
+      fill: $sol-white;
     }
   }
 
@@ -275,6 +278,7 @@
       display: block;
       padding: $spacing-unit / 4;
       border: 1px solid $border-color-01;
+      border-radius: 5px;
       &:hover { border-color: $sol-blue }
     }
   }
