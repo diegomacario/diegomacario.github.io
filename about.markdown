@@ -23,5 +23,5 @@ I also like to write about simpler but scarier things, like for example:
 If you like any of those things, stick around too!
 
 <p align="center">
-<img src="/Assets/images/Portrait2.JPG" alt="drawing" width="500"/>
+<img src="/assets/images/Portrait2.JPG" alt="drawing" width="500"/>
 </p>
