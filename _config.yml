@@ -39,7 +39,7 @@ minima:
 theme: minima
 plugins:
   - jekyll-feed
-  - jekyll_inline_highlight
+
 #show_excerpts: true
 
 # Exclude from processing.
