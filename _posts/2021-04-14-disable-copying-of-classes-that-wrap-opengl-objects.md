@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Welcome to Jekyll!"
+title: "Always remember to disable the copying of classes that wrap OpenGL objects"
 tags: C++ OpenGL
 ---
 
