@@ -138,7 +138,7 @@ a {
  * Blockquotes
  */
 blockquote {
-  color: $brand-color;
+  color: $sol-quotation;
   border-left: 4px solid $border-color-01;
   padding-left: $spacing-unit / 2;
   @include relative-font-size(1.125);
