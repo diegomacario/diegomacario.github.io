@@ -79,7 +79,7 @@ teapot.render();
 // its destructor automatically deletes the OpenGL objects
 {% endhighlight %}
 
-Now it's impossible to forget to delete the OpenGL objects, which is great, but looking at the code above you might think:
+Now it's impossible to forget to delete the OpenGL objects, but looking at the code above you might think:
 
 > Why doesn't the `LoadMeshFromFile` function return a `Mesh` object instead of three separate values? By returning a `Mesh` object there's no chance that somebody would forget to wrap the values it returns.
 
@@ -93,10 +93,7 @@ Mesh LoadMeshFromFile(const std::string& filePath)
     // Read the vertex attributes from the glTF file
     // Configure the VAO and the EBO
 
-    // Wrap the OpenGL objects
-    Mesh localMesh(VAO, EBO, numIndices);
-
-    return localMesh;
+    return Mesh(VAO, EBO, numIndices);
 }
 {% endhighlight %}
 
@@ -107,21 +104,34 @@ Mesh teapot = LoadMeshFromFile("assets/models/teapot.gltf");
 teapot.render();
 {% endhighlight %}
 
-Everything looks good, but unfortunately the code above has a subtle problem that will cause it to fail. To understand that problem, let's do a step-by-step walkthrough of this line of code:
+Everything seems perfect, but unfortunately the code above has a subtle problem that will cause it to fail. To understand that problem, let's do a step-by-step walkthrough of this line of code:
 
 {% highlight cpp %}
 Mesh teapot = LoadMeshFromFile("assets/models/teapot.gltf");
 {% endhighlight %}
 
-1. The `LoadMeshFromFile` function returns a `Mesh` object by value. That temporary `Mesh` object (let's refer to it as `tempMesh`) is copy-constructed from `localMesh`. This means that at this point we have two objects (`localMesh` and `tempMesh`) that wrap the same OpenGL objects.
+- The `LoadMeshFromFile` function returns a `Mesh` object by value. That temporary `Mesh` object (let's refer to it as `returnedTempMesh`) is copy-constructed from another temporary `Mesh` object that's created in the return statement (let's refer to this one as `localTempMesh`):
 
-2. When we exit `LoadMeshFromFile`, `localMesh` goes out of scope, which causes the OpenGL objects it wraps to be deleted in its destructor. Since `tempMesh` wraps the same OpenGL objects, this means that the objects that `tempMesh` wraps have now been deleted too.
+{% highlight cpp %}
+// returnedTempMesh is the Mesh that's returned by this function
+Mesh LoadMeshFromFile(const std::string& filePath)
+{
+    // ...
 
-3. Finally, the `teapot` object is copy-constructed from `tempMesh`. This means that `teapot` ends up wrapping the already deleted objects too.
+    // localTempMesh is created by the call to Mesh(VAO, EBO, numIndices) below
+    return Mesh(VAO, EBO, numIndices);
+}
+{% endhighlight %}
 
-So the call to `teapot.render();` will fail because the VAO and the EBO of the teapot have already been deleted.
+- This means that at one point in time we have two objects (`returnedTempMesh` and `localTempMesh`) that wrap the same OpenGL objects.
 
-To understand that problem, let's go back to the definition of the `Mesh` class. We only defined a constructor, a destructor and the `render` method in that class, but C++ silently defined two more methods: the copy constructor and the copy assignment operator. Those methods look like this:
+- When we exit `LoadMeshFromFile`, `localTempMesh` goes out of scope, which causes the OpenGL objects it wraps to be deleted in its destructor. Since `returnedTempMesh` wraps the same OpenGL objects, this means that the objects that `returnedTempMesh` wraps have now been deleted too.
+
+- Finally, the `teapot` object is copy-constructed from `returnedTempMesh`. This means that `teapot` ends up wrapping the already deleted objects too.
+
+So the call to `teapot.render();` will fail because the VAO and the EBO of the teapot have already been deleted by the time we execute it.
+
+The root of this problem is the copy constructor and the copy assignment operator that C++ silently generated for us in the `Mesh` class. Those methods look like this:
 
 {% highlight cpp %}
 // Copy constructor
@@ -142,7 +152,81 @@ Mesh& Mesh::operator=(const Mesh& rhs) {
 }
 {% endhighlight %}
 
+As OpenGL developers we know that even though `mVAO` and `mVBO` are `unsigned ints`, those two member variables effectively behave as pointers to memory on the GPU, which is why we would never copy them. The problem is that C++ doesn't know that. In its eyes, `mVAO` and `mVBO` are simple `unsigned ints` that can be easily copied. If they were actual pointers, C++ wouldn't generate a copy constructor and a copy assignment operator for us:
 
+{% highlight cpp %}
+class Mesh
+{
+public:
+    // ...
+
+private:
+    // When an instance of this class is copied, should the mVAO and mEBO of the copy
+    // point to the same VAO and EBO as the original? Or should the VAO and EBO be
+    // duplicated in the GPU so that each instance can point to its own objects?
+    // C++ can't make that decision, so it wouldn't generate a copy constructor and
+    // a copy assignment operator for us.
+    VAO* mVAO;
+    EBO* mEBO;
+    unsigned int mNumIndices;
+};
+{% endhighlight %}
+
+So how do we fix this? The first solution that comes to mind is to define the copy constructor and the copy assignment operator of the `Mesh` class ourselves, and to somehow copy the OpenGL objects it wraps in them so that when they are called, each `Mesh` object involved ends up wrapping its own OpenGL objects. That would be really nice, but according to the OpenGL documentation it's not a good idea:
+
+> Copying an OpenGL object's data to a new object is incredibly expensive; it is also essentially impossible to do, thanks to the ability of extensions to add state that you might not statically know about.
+
+So the only option we are left with is to disable the copying of the `Mesh` class so that nobody runs into this problem when using it. 
+
+The first thing we need to do is to disable the copying of the Mesh class and to define its move constructor and its move assignment operator:
+
+{% highlight cpp %}
+class Mesh
+{
+public:
+    // ...
+
+    // Delete the copy constructor and the copy assignment operator
+    Mesh(const Mesh& rhs) = delete;
+    Mesh& operator=(const Mesh& rhs) = delete;
+
+    // Move constructor
+    Mesh(Mesh&& rhs) noexcept
+        : mVAO(std::exchange(rhs.mVAO, 0))
+        , mEBO(std::exchange(rhs.mEBO, 0))
+        , mNumIndices(std::exchange(rhs.mNumIndices, 0))
+    {
+
+    }
+
+    // Move assignment operator
+    Mesh& operator=(Mesh&& rhs) noexcept
+    {
+       mVAO = std::exchange(rhs.mVAO, 0);
+       mEBO = std::exchange(rhs.mEBO, 0);
+       mNumIndices = std::exchange(rhs.mNumIndices, 0);
+       return *this;
+    }
+
+    // ...
+
+private:
+   unsigned int mVAO, mEBO, mNumIndices;
+};
+{% endhighlight %}
+
+Now it's not possible to copy `Mesh` objects. They can only be moved instead, and when a move occurs, the object that we move from is left with an `mVAO` and an `mVBO` of 0, which is equivalent to saying that it doesn't wrap any OpenGL objects anymore.
+
+And finally, we need to update `LoadMeshFromFile` to use `std::move`:
+
+{% highlight cpp %}
+Mesh LoadMeshFromFile(const std::string& filePath)
+{
+    // ...
+
+    return Mesh(VAO, EBO, numIndices);
+}
+{% endhighlight %}
 
 [Jekyll docs][jekyll-docs]
 
