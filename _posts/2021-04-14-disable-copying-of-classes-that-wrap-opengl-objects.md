@@ -93,7 +93,9 @@ Mesh LoadMeshFromFile(const std::string& filePath)
     // Read the vertex attributes from the glTF file
     // Configure the VAO and the EBO
 
-    return Mesh(VAO, EBO, numIndices);
+    Mesh loadedMesh(VAO, EBO, numIndices);
+
+    return loadedMesh;
 }
 {% endhighlight %}
 
@@ -110,7 +112,7 @@ Everything seems perfect, but unfortunately the code above has a subtle problem 
 Mesh teapot = LoadMeshFromFile("assets/models/teapot.gltf");
 {% endhighlight %}
 
-- The `LoadMeshFromFile` function returns a `Mesh` object by value. That temporary `Mesh` object (let's refer to it as `returnedTempMesh`) is copy-constructed from another temporary `Mesh` object that's created in the return statement (let's refer to this one as `localTempMesh`):
+- The `LoadMeshFromFile` function returns a `Mesh` object by value. That temporary `Mesh` object (let's refer to it as `returnedTempMesh`) is copy-constructed from `loadedMesh`:
 
 {% highlight cpp %}
 // returnedTempMesh is the Mesh that's returned by this function
@@ -118,16 +120,16 @@ Mesh LoadMeshFromFile(const std::string& filePath)
 {
     // ...
 
-    // localTempMesh is created by the call to the Mesh constructor below
-    return Mesh(VAO, EBO, numIndices);
+    // returnedTempMesh is copy-constructed from loadedMesh
+    return loadedMesh;
 }
 {% endhighlight %}
 
-- This means that at one point in time we have two objects (`returnedTempMesh` and `localTempMesh`) that wrap the same OpenGL objects.
+- This means that at one point in time we have two objects (`loadedMesh` and `returnedTempMesh`) that wrap the same OpenGL objects.
 
-- When we exit `LoadMeshFromFile`, `localTempMesh` goes out of scope, which causes the OpenGL objects it wraps to be deleted in its destructor. Since `returnedTempMesh` wraps the same OpenGL objects, this means that the objects that `returnedTempMesh` wraps have now been deleted too.
+- When we exit `LoadMeshFromFile`, `loadedMesh` goes out of scope, which causes the OpenGL objects it wraps to be deleted in its destructor. Since `returnedTempMesh` wraps the same OpenGL objects, this means that the objects that `returnedTempMesh` wraps have now been deleted too.
 
-- Finally, the `teapot` object is copy-constructed from `returnedTempMesh`. This means that `teapot` ends up wrapping the already deleted objects too.
+- Finally, the `teapot` object is copy-constructed from `returnedTempMesh`, which causes it to end up wrapping the already deleted OpenGL objects too.
 
 So the call to `teapot.render();` will fail because the VAO and the EBO of the teapot have already been deleted by the time we execute it.
 
@@ -202,7 +204,7 @@ That would be really nice, but according to the OpenGL documentation it's not a 
 
 > Copying an OpenGL object's data to a new object is incredibly expensive; it is also essentially impossible to do, thanks to the ability of extensions to add state that you might not statically know about.
 
-So the only option we are left with is to disable the copying of the `Mesh` class so that nobody runs into this problem while using it. It may seem hard to work with `Mesh` objects that cannot be copied, but remember that they can still be moved if we define a move constructor and a move assignment operator. With those final improvements, the `Mesh` class looks like this:
+So the only option that we are left with is to disable the copying of the `Mesh` class so that nobody runs into this problem while using it. It may seem hard to work with `Mesh` objects that cannot be copied, but remember that they can still be moved if we define a move constructor and a move assignment operator. With those final improvements, the `Mesh` class looks like this:
 
 {% highlight cpp %}
 class Mesh
@@ -248,7 +250,7 @@ And something really nice is that we don't have to make any changes to the `Load
 Mesh teapot = LoadMeshFromFile("assets/models/teapot.gltf");
 {% endhighlight %}
 
-- The `LoadMeshFromFile` function returns a `Mesh` object by value. That temporary `Mesh` object (let's refer to it as `returnedTempMesh`) is **move-constructed** from another temporary `Mesh` object that's created in the return statement (let's refer to this one as `localTempMesh`):
+- The `LoadMeshFromFile` function returns a `Mesh` object by value. That temporary `Mesh` object (let's refer to it as `returnedTempMesh`) is **move-constructed** from `loadedMesh`:
 
 {% highlight cpp %}
 // returnedTempMesh is the Mesh that's returned by this function
@@ -256,15 +258,19 @@ Mesh LoadMeshFromFile(const std::string& filePath)
 {
     // ...
 
-    // localTempMesh is created by the call to the Mesh constructor below
-    return Mesh(VAO, EBO, numIndices);
+    // returnedTempMesh is move-constructed from loadedMesh
+    return loadedMesh;
 }
 {% endhighlight %}
 
-- This means that when `returnedTempMesh` is move-constructed, `localTempMesh` stops wrapping any OpenGL objects.
+- This means that when `returnedTempMesh` is move-constructed, `loadedMesh` stops wrapping any OpenGL objects.
 
-- When we exit `LoadMeshFromFile`, `localTempMesh` goes out of scope, which causes its destructor to be called. Since its `mVAO` and `mVBO` were set to 0 during the move-construction of `returnedTempMesh`, its destructor doesn't delete any OpenGL objects.
+- When we exit `LoadMeshFromFile`, `loadedMesh` goes out of scope, which causes its destructor to be called. Since its `mVAO` and `mVBO` were set to 0 during the move-construction of `returnedTempMesh`, its destructor doesn't delete any OpenGL objects.
 
 - Finally, the `teapot` object is **move-constructed** from `returnedTempMesh`. Because of this, when `returnedTempMesh` is destroyed, it doesn't delete the OpenGL objects that `teapot` now wraps.
 
-I know this all seems very complicated at first, but once you know the rules of the game, you can focus on actually playing it!
+I know this all seems terribly complicated at first, but once you know the rules of the game you can focus on actually playing it and on the things that make it fun, like rendering beautiful teapots!
+
+<p align="center">
+<img src="/assets/images/teapot.png" alt="Colourful teapot" width="728"/>
+</p>
