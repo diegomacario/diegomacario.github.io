@@ -33,7 +33,7 @@ glDeleteVertexArrays(1, &VAO);
 glDeleteBuffers(1, &EBO);
 {% endhighlight %}
 
-Note the calls to delete the VAO and the EBO at the bottom. We need to remember to do that once we are done working with the teapot, or otherwise we would leak those OpenGL objects. The problem is that that's something that's easy to forget, but we can make sure that we always do it by using this simple wrapper class:
+Note the calls to delete the VAO and the EBO at the bottom. We need to remember to make those calls once we are done working with the teapot, or otherwise we would leak the OpenGL objects that represent it. The problem is that making those calls is something that's easy to forget, but we can make sure that we always do it by using this simple wrapper class:
 
 {% highlight cpp %}
 class Mesh
@@ -112,7 +112,7 @@ Everything seems perfect, but unfortunately the code above has a subtle problem 
 Mesh teapot = LoadMeshFromFile("assets/models/teapot.gltf");
 {% endhighlight %}
 
-**Note**: The sequence of events presented below is not accurate in modern C++ because of compiler optimizations like copy elision and the return value optimization (RVO). Regardless, for the purposes of this explanation it's an acceptable simplification.
+**Note**: The sequence of events presented below is not accurate in modern C++ because of compiler optimizations like copy elision and the return value optimization (RVO). I decided to omit the effects of those optimizations to simplify the analysis.
 
 - The `LoadMeshFromFile` function returns a `Mesh` object by value. That temporary `Mesh` object (let's refer to it as `returnedTempMesh`) is copy-constructed from `loadedMesh`:
 
@@ -158,7 +158,7 @@ Mesh& Mesh::operator=(const Mesh& rhs) {
 
 As OpenGL developers we know that even though `mVAO` and `mVBO` are `unsigned ints`, those two member variables effectively behave as pointers to memory on the GPU, which is why it doesn't make sense to have two instances of the `Mesh` class with the same `mVAO` and `mVBO` values. The problem is that C++ doesn't know that. In its eyes `mVAO` and `mVBO` are simple `unsigned ints` that can be easily copied.
 
-The fact that we explicitly declared a destructor in the `Mesh` class should tell C++ that there's something particular about the member variables of said class, and that it shouldn't generate a copy constructor and a copy assignment operator for that reason. Unfortunately C++ doesn't do that because implementing that feature would break too much legacy code. Explicitly declaring a destructor only prevents the generation of the move constructor and the move assignment operator:
+The fact that we explicitly declared a destructor in the `Mesh` class should tell C++ that there's something particular about the member variables of said class, and that it shouldn't generate a copy constructor and a copy assignment operator for that reason. Unfortunately, C++ doesn't do that because adding that feature would break too much legacy code. Explicitly declaring a destructor only prevents the generation of the move constructor and the move assignment operator:
 
 {% highlight cpp %}
 class Mesh
@@ -175,10 +175,12 @@ public:
     }
 
     // C++ silently generates the copy constructor and the copy assignment operator
+    // even though we defined the destructor
     Mesh(const Mesh& rhs);
     Mesh& operator=(const Mesh& rhs);
 
     // C++ doesn't generate the move constructor and the move assignment operator
+    // because we defined the destructor
     Mesh(const Mesh&& rhs) = delete;
     Mesh& operator=(const Mesh&& rhs) = delete;
 
@@ -187,14 +189,14 @@ private:
 };
 {% endhighlight %}
 
-So how do we fix this? The first solution that comes to mind is to define the copy constructor and the copy assignment operator of the `Mesh` class ourselves, and to somehow copy the OpenGL objects in them so that when they are called each `Mesh` object involved ends up wrapping its own OpenGL objects.
+So how do we fix this? The first solution that comes to mind is to define the copy constructor and the copy assignment operator of the `Mesh` class ourselves, and to somehow copy the OpenGL objects in them so that when they are called each `Mesh` object involved ends up wrapping its own OpenGL objects:
 
 {% highlight cpp %}
 // Copy constructor
 Mesh::Mesh(const Mesh& rhs)
 {
     // Somehow duplicate rhs.mVAO and rhs.mEBO in the GPU
-    // In other words, perform a deep copy instead of a shallow copy
+    // In other words, perform a deep copy
 
     // Wrap the duplicates
     mVAO = copyOfVAO;
@@ -205,7 +207,7 @@ Mesh::Mesh(const Mesh& rhs)
 // Copy assignment operator
 Mesh& Mesh::operator=(const Mesh& rhs) {
     // Somehow duplicate rhs.mVAO and rhs.mEBO in the GPU
-    // In other words, perform a deep copy instead of a shallow copy
+    // In other words, perform a deep copy
 
     // Wrap the duplicates
     mVAO = copyOfVAO;
@@ -215,11 +217,11 @@ Mesh& Mesh::operator=(const Mesh& rhs) {
 }
 {% endhighlight %}
 
-That would be really nice, but according to the OpenGL documentation it's not a good idea:
+That would be great, but according to the OpenGL documentation it's not a good idea:
 
 > Copying an OpenGL object's data to a new object is incredibly expensive; it is also essentially impossible to do, thanks to the ability of extensions to add state that you might not statically know about.
 
-So the only option that we are left with is to disable the copying of the `Mesh` class so that nobody runs into this problem while using it. It may seem hard to work with `Mesh` objects that cannot be copied, but remember that they can still be moved if we define a move constructor and a move assignment operator. With those final improvements, the `Mesh` class looks like this:
+So the only option that we are left with is to disable the copying of the `Mesh` class so that nobody runs into this problem while using it. It may seem hard to work with `Mesh` objects that cannot be copied but remember that they can still be moved if we define a move constructor and a move assignment operator. With those final improvements, the `Mesh` class looks like this:
 
 {% highlight cpp %}
 class Mesh
@@ -259,13 +261,13 @@ private:
 
 Now it's impossible to copy `Mesh` objects. They can only be moved, and when a move occurs, the `mVAO` and `mVBO`of the object that we move from are set equal to 0, which is equivalent to saying that it doesn't wrap any OpenGL objects anymore.
 
-And something really nice is that we don't have to make any changes to the `LoadMeshFromFile` function. To understand why, let's do a step-by-step walkthrough of the same line of code as before:
-
-**Note**: The sequence of events presented below is not accurate in modern C++ because of the same reasons as before.
+And something cool is that we don't have to make any changes to the `LoadMeshFromFile` function. To understand why, let's do a step-by-step walkthrough of the same line of code as before:
 
 {% highlight cpp %}
 Mesh teapot = LoadMeshFromFile("assets/models/teapot.gltf");
 {% endhighlight %}
+
+**Note**: The sequence of events presented below is not accurate in modern C++ because of compiler optimizations like copy elision and the return value optimization (RVO). I decided to omit the effects of those optimizations to simplify the analysis.
 
 - The `LoadMeshFromFile` function returns a `Mesh` object by value. That temporary `Mesh` object (let's refer to it as `returnedTempMesh`) is move-constructed from `loadedMesh`:
 
@@ -284,7 +286,7 @@ Mesh LoadMeshFromFile(const std::string& filePath)
 
 - When we exit `LoadMeshFromFile`, `loadedMesh` goes out of scope, which causes its destructor to be called. Since its `mVAO` and `mVBO` were set to 0 during the move-construction of `returnedTempMesh`, its destructor doesn't delete any OpenGL objects.
 
-- Finally, the `teapot` object is move-constructed from `returnedTempMesh`. Because of this, when `returnedTempMesh` is destroyed, it doesn't delete the OpenGL objects that `teapot` now wraps.
+- Finally, the `teapot` object is move-constructed from `returnedTempMesh`. Because of this move-construction, when `returnedTempMesh` is destroyed, it doesn't delete the OpenGL objects that `teapot` now wraps.
 
 I know this all seems terribly complicated at first, but I like to think of all these details as "the rules of the game." Once you know them, you can focus on actually playing the game and on the things that make it fun, like rendering beautiful teapots!
 
