@@ -291,5 +291,5 @@ Mesh LoadMeshFromFile(const std::string& filePath)
 I know this all seems terribly complicated at first, but I like to think of all these details as "the rules of the game." Once you know them, you can focus on actually playing the game and on the things that make it fun, like rendering beautiful teapots!
 
 <p align="center">
-<img src="/assets/images/teapot.png" alt="Colourful teapot" width="728"/>
+<img src="/assets/images/disable_copying/teapot.png" alt="Colourful teapot" width="728"/>
 </p>

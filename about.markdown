@@ -24,5 +24,5 @@ I also like to write about simpler things, like for example:
 If you like any of those things, then stick around too!
 
 <p align="center">
-<img src="/assets/images/Portrait2.JPG" alt="Slacklining in Parc Jarry" width="610"/>
+<img src="/assets/images/about/portrait_compressed_and_resized.jpg" alt="Slacklining in Parc Jarry" width="610"/>
 </p>
