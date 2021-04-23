@@ -86,8 +86,7 @@ Now it's impossible to forget to delete the OpenGL objects, but looking at the c
 And you are totally right, that's much cleaner. With that change, the `LoadMeshFromFile` function would look like this:
 
 {% highlight cpp %}
-Mesh LoadMeshFromFile(const std::string& filePath)
-{
+Mesh LoadMeshFromFile(const std::string& filePath) {
     unsigned int VAO, EBO, numIndices;
 
     // Read the vertex attributes from the glTF file
@@ -118,8 +117,7 @@ Mesh teapot = LoadMeshFromFile("assets/models/teapot.gltf");
 
 {% highlight cpp %}
 // returnedTempMesh is the Mesh that's returned by this function
-Mesh LoadMeshFromFile(const std::string& filePath)
-{
+Mesh LoadMeshFromFile(const std::string& filePath) {
     // ...
 
     // returnedTempMesh is copy-constructed from loadedMesh
@@ -193,8 +191,7 @@ So how do we fix this? The first solution that comes to mind is to define the co
 
 {% highlight cpp %}
 // Copy constructor
-Mesh::Mesh(const Mesh& rhs)
-{
+Mesh::Mesh(const Mesh& rhs) {
     // Somehow duplicate rhs.mVAO and rhs.mEBO in the GPU
     // In other words, perform a deep copy
 
@@ -244,8 +241,7 @@ public:
     }
 
     // Move assignment operator
-    Mesh& operator=(Mesh&& rhs) noexcept
-    {
+    Mesh& operator=(Mesh&& rhs) noexcept {
        mVAO = std::exchange(rhs.mVAO, 0);
        mEBO = std::exchange(rhs.mEBO, 0);
        mNumIndices = std::exchange(rhs.mNumIndices, 0);
@@ -273,8 +269,7 @@ Mesh teapot = LoadMeshFromFile("assets/models/teapot.gltf");
 
 {% highlight cpp %}
 // returnedTempMesh is the Mesh that's returned by this function
-Mesh LoadMeshFromFile(const std::string& filePath)
-{
+Mesh LoadMeshFromFile(const std::string& filePath) {
     // ...
 
     // returnedTempMesh is move-constructed from loadedMesh
