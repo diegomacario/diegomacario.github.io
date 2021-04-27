@@ -15,11 +15,11 @@ sky—and then I went down on my knees. At that moment there was very little I k
 the world—I had but one sentence in mind—always the same: "I called to the Lord from my narrow
 prison and He answered me in the freedom of space."
 
-Ever since I read that paragraph a few years ago, I have thought about it often. The moment Viktor describes in it is so beautiful that at first I thought it was a happy ending to his story, but in the next few pages he makes it clear that that moment was really the beginning of a long and difficult journey towards recovery. Viktor had lost his parents, brother and wife in the same camps where he had been imprisoned, and now he had to rebuild his life.
+Ever since I read that paragraph a few years ago, I have thought about it often. The moment Viktor describes in it is so beautiful that at first I thought it marked the end of all his suffering, but in the next few pages he makes it clear that that moment was really the beginning of a long and difficult journey towards recovery. He had lost his parents, brother and wife in the same camps where he had been imprisoned, and now he had to rebuild his body and his life.
 
-That paragraph helped me understand that sadness is something that arrives quickly and that can take a long time to leave, and it reminded me that one is never alone when going through that process.
+Seeing the contrast between what I thought that moment meant for Viktor and what it really meant for him helped me understand that sadness is something that arrives quickly and that can take a long time to leave. I think it's important to know that because once you do, you stop thinking about when your sadness will go away, and instead you focus on living your life.
 
-It also made me realize what a miracle the "freedom of space" is. I can't count the number of times when I have been running or climbing and Viktor's words have come into my mind: thank you Lord for the freedom of space.
+That paragraph also made me realize what a miracle the "freedom of space" is. I can't count the number of times when I have been running or climbing and Viktor's words have come into my mind: thank you Lord for the freedom of space.
 
 <p align="center">
 <img src="/assets/images/favourite_paragraph/spire.jpeg" alt="Running" width="510"/>
