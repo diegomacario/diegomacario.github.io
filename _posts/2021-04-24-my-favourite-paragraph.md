@@ -17,7 +17,7 @@ prison and He answered me in the freedom of space."
 
 Ever since I read that paragraph a few years ago, I have thought about it often. The moment Viktor describes in it is so beautiful that at first I thought it marked the end of all his suffering, but in the next few pages he makes it clear that that moment was really the beginning of a long and difficult journey towards recovery. He had lost his parents, brother and wife in the same camps where he had been imprisoned, and now he had to rebuild his body and his life.
 
-Seeing the contrast between what I thought that moment meant for Viktor and what it really meant for him helped me understand that sadness is something that arrives quickly and that can take a long time to leave. I think it's liberating to know that because once you do, you stop thinking about when your sadness will go away, and instead you focus on doing things that will help you recover.
+Seeing the contrast between what I thought that moment meant for Viktor and what it really meant for him helped me understand that sadness is something that can stay with you for a long time after what made you suffer has ended, and that it's normal for it to do that. I think it's liberating to know that, because once you do, you stop thinking about when your sadness will go away and instead you focus on doing things that will help you recover.
 
 That paragraph also made me realize what a miracle the "freedom of space" is. I can't count the number of times when I have been running or climbing and Viktor's words have come into my mind: thank you Lord for the freedom of space.
 
