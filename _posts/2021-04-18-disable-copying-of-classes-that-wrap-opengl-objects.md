@@ -179,8 +179,8 @@ public:
 
     // C++ doesn't generate the move constructor and the move assignment operator
     // because we defined the destructor
-    Mesh(const Mesh&& rhs) = delete;
-    Mesh& operator=(const Mesh&& rhs) = delete;
+    Mesh(Mesh&& rhs) = delete;
+    Mesh& operator=(Mesh&& rhs) = delete;
 
 private:
     unsigned int mVAO, mEBO, mNumIndices;
