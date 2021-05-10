@@ -2,7 +2,7 @@
 layout: post
 title: "The Hitchcock scene that nobody talks about"
 tags: Movies
-published: false
+published: true
 ---
 
 A few years ago, on a day when I was very sick in bed, I stumbled upon a movie called [Rear Window](https://en.wikipedia.org/wiki/Rear_Window) on Netflix. I had never watched a Hitchcock movie before then, so I decided to give it a shot. What followed was the greatest cinematic experience I have ever had. I don't know why, but as I watched that movie I felt transported into its world. Perhaps it was because the main character is stuck at home with a broken leg during the entire movie, just as I was stuck at home feeling sick, or perhaps it was because the movie is all about voyeurism.
@@ -45,9 +45,23 @@ It's amazing how Hitchcock adapted to new technological developments throughout 
 
 Each one of those scenes is unique and timeless, which is why you can find countless articles that analyze every single aspect of them.
 
-In this post, however, I wanted to talk about a scene that I have never heard anyone mention, and that I think is a great example of Hitchcock's style. It's from a spy thriller called [Foreign Correspondent](https://en.wikipedia.org/wiki/Foreign_Correspondent_(film)), which was released in 1940. For context, in this scene one of the heroes of the movie, who has been captured by a group of German agents, tries to escape. Here it is:
+In this post, however, I wanted to talk about a scene that I have never heard anyone mention, and that I think is a great example of Hitchcock's style. It's from a spy thriller called [Foreign Correspondent](https://en.wikipedia.org/wiki/Foreign_Correspondent_(film)), which was released in 1940. For context, in the scene I'm about to show you one of the heroes of the movie, who has been captured by a group of German agents, tries to escape. Here it is:
 
 {% include youtube.html id='QixcpxXswiY?modestbranding=1&amp;rel=0' %}
 <p></p>
 
-The first time I saw that dummy falling through the sky I burst out laughing. I thought it was wonderfully ingenious.
+The first time I saw that dummy falling down that building I laughed out loud. I think the way it's posed is really funny. People don't usually stretch their arms upwards when they fall from high places:
+
+<p align="center">
+<img src="/assets/images/hitchcock/dummy.PNG" alt="Foreign Correspondent (1940)" width="728"/>
+</p>
+
+But what I find even funnier is the sequence of events here. Let's recap for a moment:
+
+- A man is fighting for his life with two other men.
+- He realizes that he can't win the fight, so he jumps out of a window.
+- He lands on the middle of the sidewalk, isn't surprised to see his friends, who are also not surprised to see that he just jumped out of a third-story window, and immediately rushes back inside to continue fighting with their help.
+
+And not only that, but this scene also has a big discontinuity error. When our hero lands on the sidewalk, his suit is a mess and he's completely soaked in rain water, but as soon as he steps inside his appearance is immaculate and he's completely dry.
+
+The conclusion I'm trying to reach is that this scene is completely absurd, and yet, that's precisely what makes it wonderful. Hitchcock was willing to sacrifice realism in the name of entertainment, which is why his movies are full of moments like the one above. Just think back to the crop duster attack from [North by Northwest](https://en.wikipedia.org/wiki/North_by_Northwest). It doesn't make any sense to lure a man out to the middle of nowhere so that you can then try to kill him with a crop duster. I can't think of a more complicated way to kill someone. But Hitchcock didn't mind, because he knew that the image of a man running away from a crop duster would be spectacular, and he was right. We are still talking about that moment 62 years later, aren't we? He also knew that the image of a man jumping out of a window and rushing back inside would be spectacular, or perhaps he just thought it would be funny. Either way, it's memorable enough to make a stranger want to write about it 81 years later.
