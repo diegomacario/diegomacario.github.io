@@ -60,7 +60,7 @@ But what I find even funnier is the sequence of events here. Let's recap for a m
 
 - A man is fighting for his life with two other men.
 - He realizes that he can't win the fight, so he jumps out of a window.
-- He lands on the middle of the sidewalk, isn't surprised to see his friends, who are also not surprised to see that he just jumped out of a third-story window, and immediately rushes back inside to continue fighting with their help.
+- He lands in the middle of the sidewalk, and he isn't surprised to see his friends, who are also not surprised that he just jumped out of a third-story window, and he immediately rushes back inside to continue fighting with their help.
 
 And not only that, but this scene also has a big discontinuity error. When our hero lands on the sidewalk, his suit is a mess and he's completely soaked in rain water, but as soon as he steps inside his appearance is immaculate and he's completely dry.
 
