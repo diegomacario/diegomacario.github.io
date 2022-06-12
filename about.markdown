@@ -4,13 +4,15 @@ title: About
 permalink: /about/
 ---
 
-Hello! My name is Diego Macario. I'm a Venezuelan who now lives in Montreal, Quebec. I work as a software engineer at Autodesk, where I write code for 3ds Max, which is my favourite digital content creation tool.
+Hello! My name is Diego Macario. I'm a Venezuelan who now lives in Montreal, Quebec. I work as a software engineer at Shopify, where I am a member of the Spatial Commerce Team. Before joining Shopify I worked at Autodesk, where I wrote code for 3ds Max.
 
 Over the last 5 years I have been studying computer graphics as a hobby, and I have been creating many cool applications using C++ and OpenGL. I love writing code that has visual results, which is why I have gravitated towards computer graphics. Here are some of the things that I have built:
 
-- [Super-Sunshine](https://github.com/diegomacario/Super-Sunshine): A ray-tracer with a simple scene description language.
+- [Moonlight Museum](https://play.moonlightmuseum.io/): A 3D multiplayer museum of digital art that runs in the browser.
+- [Animation-Magic](https://diegomacario.github.io/Animation-Magic): A visualization of all the math that powers 3D character animations.
+- [Animation-Experiments](https://diegomacario.github.io/Animation-Experiments): A 3D character animation system.
 - [Dyna-Kinematics](https://github.com/diegomacario/Dyna-Kinematics): A 2D physics simulator that can record animations.
-- [Animation-Experiments](https://diegomacario.github.io/Animation-Experiments): A 3D character animation system that runs in the browser.
+- [Super-Sunshine](https://github.com/diegomacario/Super-Sunshine): A ray-tracer with a simple scene description language.
 
 I decided to start this blog because I have learned a lot of cool things by working on those projects, and I think that I can teach those things to other people in new and interesting ways. So if you are at all curious about how a computer can be used to draw an image, then stick around!
 
