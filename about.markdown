@@ -8,7 +8,6 @@ Hello! My name is Diego Macario. I'm a Venezuelan who now lives in Montreal, Que
 
 Over the last 5 years I have been studying computer graphics as a hobby, and I have been creating many cool applications using C++ and OpenGL. I love writing code that has visual results, which is why I have gravitated towards computer graphics. Here are some of the things that I have built:
 
-- [Moonlight Museum](https://play.moonlightmuseum.io/): A 3D multiplayer museum of digital art that runs in the browser.
 - [Animation-Magic](https://diegomacario.github.io/Animation-Magic): A visualization of all the math that powers 3D character animations.
 - [Animation-Experiments](https://diegomacario.github.io/Animation-Experiments): A 3D character animation system.
 - [Dyna-Kinematics](https://github.com/diegomacario/Dyna-Kinematics): A 2D physics simulator that can record animations.
